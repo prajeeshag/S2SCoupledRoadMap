@@ -1,23 +1,16 @@
 # RoadMap of Development of the AP regional coupled model
 
- :white_check_mark: ## Selecting Domain, Grid and Resolution 
+- [ ] Domain, Grid and Resolution
+	- [ ] Domain -
+	- [ ] Grid - Lat-Lon (Cyllindrical equidistant) for both Ocean and Atmosphere
+	- [ ] Resolution - 0.036 degrees (<4km) for both Ocean and Atmosphere
 
-  
-  ### gfs_nc_io - FMS based netcdf IO for GFS class models
-    - [x]  compile with CFSv2
-    - [ ]  compile with GFSv14
-  
-  ### IITM-ESM related
-  - [ ] TCO62
-    - [x] TO62 - need to rerun with proper namelist parameters, last run had problems with gas conc being from preind
-  
- 
-  ### Install and Run SHiELD
-  - [x] Compile SHiELD in Pratyush
-  - [ ] Compile hpc-stack
-  - [ ] compile UFS_UTILS
-  - [ ] Create Grids
-  - [ ] Create topography and other files
-  - [ ] Regrid GFSv14 Initial conditions
-  
+- [ ] Setting up WRF and MITgcm. Make standalone simulations (Feb 2023)
+- [ ] Setting up the coupled model and make test simulations (March-April 2023)
+- [ ] Developing an end-to-end automated workflow using CYLC workflow engine for making ensemble forecasts (May 2023)
+- [ ] Run hindcasts and evaluate against the standalone S2S models (June-August 2023)
+- [ ] Optimize the coupled model for performance (September 2023)
+- [ ] [Develop an automated evaluation framework] (October 2023)
+
+
  
