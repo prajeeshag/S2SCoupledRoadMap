@@ -1,4 +1,4 @@
-# RoadMap of Development of the AP regional coupled model
+# Development of the AP regional coupled model for S2S prediction
 
 - [ ] Domain, Grid and Resolution
 	- [ ] Domain -
