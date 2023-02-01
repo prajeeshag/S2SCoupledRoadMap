@@ -1,6 +1,7 @@
-RoadMap of Development of the AP regional coupled model
+# RoadMap of Development of the AP regional coupled model
 
-## Model development related
+  ## [ ] Selecting Domain, Grid and Resolution
+  
   ### gfs_nc_io - FMS based netcdf IO for GFS class models
     - [x]  compile with CFSv2
     - [ ]  compile with GFSv14
