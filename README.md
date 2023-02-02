@@ -1,7 +1,7 @@
 # Development of the AP regional coupled model for S2S prediction
 
 - [ ] Domain, Grid and Resolution
-- [ ] Set up WRF and MITgcm in the new domain. Make standalone hindcasts and evaluate against the S2S models (Feb-March 2023)
+- [ ] Setting up standalone WRF and MITgcm for new domain. Make hindcasts and evaluate against the S2S models (Feb-March 2023)
 - [ ] Setting up the coupled model and make test simulations (March-April 2023)
 - [ ] Developing an end-to-end automated workflow using [CYLC](https://cylc.github.io) workflow engine (April-May 2023)
 - [ ] Run hindcasts and evaluate against the standalone S2S models (June-August 2023)
@@ -11,6 +11,36 @@
 
 
 ## Domain, Grid and Resolution
-The coupled model domain will be kept as similar as possible to the current standalone S2S model. The current S2S setup of WRF use  
+The coupled model domain will be kept as similar/close as possible to the current standalone S2S model.
 
-![Current S2S domain]('assets/images/wps_dom_S2SWRF.png')
+| ![Current S2S domain](assets/images/wps_dom_S2SWRF.png) |
+|:--:|
+| Figure 1: The current standalone S2S domain |
+| Projection: Lambert, Resolution: 4km |
+| No: of grid points: 768 x 672 (516096) |
+| ref_lat   =  22.3, ref_lon   =  45.0 |
+
+<br>
+
+| ![Coupled S2S domain 1](assets/images/wps_dom_S2SCoupled1.png) |
+|:--:|
+| Figure 2: The coupled S2S domain 1 |
+| Projection: Lat-Lon (Cyllindrical Equidistant), Resolution: 0.036 degrees |
+| No: of grid points: 900 x 800 (720000, 40% more grid points) |
+| ref_lat   =  24, ref_lon   =  44.0 |
+
+
+<br>
+
+| ![Coupled S2S domain 2](assets/images/wps_dom_S2SCoupled2.png) |
+|:--:|
+| Figure 3: The coupled S2S domain 2 |
+| Projection: Lat-Lon (Cyllindrical Equidistant), Resolution: 0.036 degrees |
+| No: of grid points: 800 x 800 (640000, 24% more grid points) |
+| ref_lat   =  24, ref_lon   =  46.0 |
+
+
+The initial plan is to use identical horizontal grids for both atmosphere and ocean to eliminate the complication of regridding winds near steep orography and complex coastlines (Sun et al. 2019, 2021). 
+
+
+##
