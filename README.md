@@ -7,7 +7,7 @@
 
 - [ ] Setting up WRF and MITgcm. Make standalone simulations (Feb 2023)
 - [ ] Setting up the coupled model and make test simulations (March-April 2023)
-- [ ] Developing an end-to-end automated workflow using CYLC workflow engine for making ensemble forecasts (May 2023)
+- [ ] Developing an end-to-end automated workflow using CYLC workflow engine (May 2023)
 - [ ] Run hindcasts and evaluate against the standalone S2S models (June-August 2023)
 - [ ] Optimize the coupled model for performance (September 2023)
 - [ ] [Develop an automated evaluation framework] (October 2023)
