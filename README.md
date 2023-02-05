@@ -13,16 +13,16 @@
 ## Domain, Grid and Resolution
 The coupled model domain will be kept as similar/close as possible to the current standalone S2S model.
 
-| ![Current S2S domain](assets/images/wps_dom_S2SWRF.png) |
-|:--:|
-| Figure 1: The current standalone S2S domain |
-| Projection: Lambert, Resolution: 4km |
-| No: of grid points: 768 x 672 (516096) |
-| ref_lat   =  22.3, ref_lon   =  45.0 |
+| ![Coupled S2S domain](assets/images/wps_dom_S2SCoupled2.png) | ![Current S2S domain](assets/images/wps_dom_S2SWRF.png) |
+|:--:|:--:|
+| Figure 1: The coupled S2S domain | Figure 2: The current standalone S2S domain |
+| Projection: Lat-Lon , Resolution: 0.036 degrees | Projection: Lambert, Resolution: 4km | 
+| No: of grid points: 800 x 770 (616000, 20% more grid points) | No: of grid points: 768 x 672 (516096) |
+| ref_lat   =  24, ref_lon   =  46.0 | ref_lat   =  22.3, ref_lon   =  45.0 |
 
 <br>
 
-| ![Coupled S2S domain 1](assets/images/wps_dom_S2SCoupled1.png) |
+<!-- | ![Coupled S2S domain 1](assets/images/wps_dom_S2SCoupled1.png) |
 |:--:|
 | Figure 2: The coupled S2S domain 1 |
 | Projection: Lat-Lon (Cyllindrical Equidistant), Resolution: 0.036 degrees |
@@ -30,17 +30,10 @@ The coupled model domain will be kept as similar/close as possible to the curren
 | ref_lat   =  24, ref_lon   =  44.0 |
 
 
-<br>
-
-| ![Coupled S2S domain 2](assets/images/wps_dom_S2SCoupled2.png) |
-|:--:|
-| Figure 3: The coupled S2S domain 2 |
-| Projection: Lat-Lon (Cyllindrical Equidistant), Resolution: 0.036 degrees |
-| No: of grid points: 800 x 800 (640000, 24% more grid points) |
-| ref_lat   =  24, ref_lon   =  46.0 |
+<br> -->
 
 
-The initial plan is to use identical horizontal grids for both atmosphere and ocean to eliminate the complication of regridding winds near steep orography and complex coastlines (Sun et al. 2019, 2021). 
+<!-- The initial plan is to use identical horizontal grids for both atmosphere and ocean to eliminate the complication of regridding winds near steep orography and complex coastlines (Sun et al. 2019, 2021).  -->
 
 
 ##
