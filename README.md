@@ -31,9 +31,7 @@ The coupled model domain will be kept as similar/close as possible to the curren
 | No: of grid points: 900 x 800 (720000, 40% more grid points) |
 | ref_lat   =  24, ref_lon   =  44.0 |
 
-
 <br> -->
-
 
 <!-- The initial plan is to use identical horizontal grids for both atmosphere and ocean to eliminate the complication of regridding winds near steep orography and complex coastlines (Sun et al. 2019, 2021).  -->
 
