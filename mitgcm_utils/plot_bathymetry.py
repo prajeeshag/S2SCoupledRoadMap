@@ -49,7 +49,6 @@ ax = plt.axes(projection=ccrs.PlateCarree())
 levels = list(np.linspace(-3000,-200,10))[:-1] + list(np.linspace(-200,0,21))
 levels = [ -0.0000001 if item == 0.0 else item for item in levels ]
 
-print(levels)
 cmap=plt.cm.jet
 norm = mcolors.BoundaryNorm(boundaries=levels, ncolors=cmap.N)
 
