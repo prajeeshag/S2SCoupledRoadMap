@@ -18,9 +18,9 @@ The coupled model domain will be kept as similar/close as possible to the curren
 | Figure 1: The coupled S2S domain | Figure 2: The current standalone S2S domain |
 | Projection: Lat-Lon | Projection: Lambert | 
 | Resolution: <br> 0.036 degrees(<4km; ATM), <br> 0.018 degrees (<2km; OCN) | Resolution: 4km | 
-| No: of grid points in ATM: <br> 800 x 770 (616000) | No: of grid points in ATM: <br> 768 x 672 (516096) |
-| 20% more grid points |  |
-| ref_lat   =  24, ref_lon   =  46.0 | ref_lat   =  22.3, ref_lon   =  45.0 |
+| No: of grid points in ATM: <br> 840 x 750 (630000) | No: of grid points in ATM: <br> 768 x 672 (516096) |
+| 22% more grid points |  |
+| ref_lat   =  23.65, ref_lon   =  46.0 | ref_lat   =  22.3, ref_lon   =  45.0 |
 
 <br>
 
