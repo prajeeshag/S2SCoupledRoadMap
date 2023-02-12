@@ -1,0 +1,15 @@
+name: skrips
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - cartopy
+  - esmf=8.4.0
+  - esmpy=8.4.0
+  - matplotlib
+  - netcdf4
+  - numpy
+  - xarray
+  - xesmf=0.7.0
+  - pip:
+      - f90nml==1.4.3
