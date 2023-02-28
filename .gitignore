@@ -1,4 +1,5 @@
 *.nc
 __pycache__
 _build
-
+*.bin
+*.log
