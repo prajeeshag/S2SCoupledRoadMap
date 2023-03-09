@@ -1,0 +1,61 @@
+#!EmPy
+# Cylc Suit for running WRF model 
+# Author: Prajeesh Ag
+
+@{
+WPS_PATH="/lustre2/project/k1028/pag/s2s/build_WRF/WPS"
+WRF_PATH="/lustre2/project/k1028/pag/s2s/build_WRF/WRF"
+GEOG_DATA_PATH="/lustre2/project/k1028/pag/s2s/build_WRF/WPS_GEOG"
+F90NML="/project/k1028/pag/mambaforge/envs/cylc/bin/f90nml"
+ENV_FILE="/lustre2/project/k1028/pag/s2s/env.shaheen_intel"
+NAMELIST_WPS="/lustre2/project/k1028/pag/s2s/S2SCoupledRoadMap/namelist.wps"
+
+GEOGRID_EXE=WPS_PATH+"/geogrid.exe"
+}
+
+
+[scheduling]
+    [[graph]]
+        # R1 means run once
+        R1 = """
+            run_geogrid #=> run_metgrid => run_real => run_wrf 
+        """
+
+[runtime]
+    [[run_ungrib]]
+        script = """
+            echo ungrib not implemented
+        """
+
+    [[run_geogrid]]
+        script = """
+            source @ENV_FILE
+            @F90NML -g geogrid -v geog_data_path=GEOG_DATA_PATH @NAMELIST_WPS > namelist.wps
+            ln -sf @GEOG_DATA_PATH GEOG_DATA_PATH
+            ln -sf @WPS_PATH/geogrid .
+            @GEOGRID_EXE 
+        """
+
+    [[run_metgrid]]
+        script = """
+            echo ungrib not implemented
+        """
+
+    [[run_real]]
+        script = """
+            echo ungrib not implemented
+        """
+
+    [[run_wrf]]
+        script = """
+            echo ungrib not implemented
+        """
+    [[root]]
+        work sub-directory = $CYLC_TASK_CYCLE_POINT/
+        [[[environment]]]
+            PYTHONPATH="/lustre2/project/k1028/pag/mambaforge/envs/cylc/bin:/sw/xc40cle7up03/xalt/1.1.2/sles15.2_gcc11.2.0/site:/sw/xc40cle7up03/xalt/1.1.2/sles15.2_gcc11.2.0/libexec:/project/k1028/pag/mambaforge/envs/cylc/lib/python310.zip:/project/k1028/pag/mambaforge/envs/cylc/lib/python3.10:/project/k1028/pag/mambaforge/envs/cylc/lib/python3.10/lib-dynload:/project/k1028/pag/mambaforge/envs/cylc/lib/python3.10/site-packages"
+            PATH="$(dirname /project/k1028/pag/mambaforge/envs/cylc/bin/python):$PATH"
+        [[[directives]]]
+            --account = k1028
+            --partition = debug
+            --nodes = 1
