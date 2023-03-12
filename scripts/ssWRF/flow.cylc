@@ -1,0 +1,99 @@
+#!EmPy
+# Cylc Suit for running WRF model 
+# Author: Prajeesh Ag
+# Implementation Subseasonal WRF setup 
+
+@{
+MAXENS = 3
+STARTDATE = "1999-10-21T00Z"
+INTERVAL = "P2D"
+RUN_GEOGRID_ONLY = True
+WRF_ROOT = "/lustre2/project/k1028/pag/s2s/build_WRF"
+F90NML = "/project/k1028/pag/mambaforge/envs/cylc/bin/f90nml"
+IDATA = "/project/k1028/pag/ECMWF/FORECAST/EXTENDEDRANGE"
+WGRIB = "wgrib"
+
+ENV_FILE = WRF_ROOT + "/env.shaheen_intel"
+WPS_PATH = WRF_ROOT + "/WPS"
+WRF_PATH = WRF_ROOT + "/WRF"
+GEOG_DATA_PATH = WRF_ROOT + "/WPS_GEOG"
+GEOGRID_EXE = WPS_PATH + "/geogrid.exe"
+UNGRIB_EXE = WPS_PATH + "/ungrib.exe"
+METGRID_EXE = WPS_PATH + "/metgrid.exe"
+LINK_GRIB = WPS_PATH + "/link_grib.csh"
+EM_REAL_DIR = WRF_PATH + "/test/em_real"
+REAL_EXE = WRF_PATH + "/main/real.exe"
+WRF_EXE = WRF_PATH + "/main/wrf.exe"
+}
+
+
+[scheduling]
+    initial cycle point = @STARTDATE
+    [[graph]]
+        # R1: means run once; ^ at initial cycle point
+        R1/^ = """
+            check_geogrid:failed => run_geogrid 
+        """
+@[if not RUN_GEOGRID_ONLY]
+        R/^/@INTERVAL = """
+           run_geogrid[^] | check_geogrid[^] => extract_input_ens => run_ungrib => run_metgrid => run_real => run_wrf 
+        """
+@[end if]
+
+[runtime]
+    [[root]]
+        work sub-directory = $CYLC_TASK_CYCLE_POINT/
+
+    [[check_geogrid]]
+        script = "cp ${CYLC_WORKFLOW_RUN_DIR}/ModelConfig/geo_em.*.nc ${CYLC_WORKFLOW_SHARE_DIR}"
+
+    [[run_geogrid]]
+        platform = slurm_platform
+        script = """
+            source @ENV_FILE
+            ln -sf $CYLC_WORKFLOW_RUN_DIR/ModelConfig/namelist.wps namelist.wps
+            ln -sf @WPS_PATH/geogrid .
+            ln -sf @GEOG_DATA_PATH WPS_GEOG
+            @GEOGRID_EXE 
+            cp geo_em.*.nc ${CYLC_WORKFLOW_SHARE_DIR}
+        """
+        [[[directives]]]
+            --account = k1028
+            --partition = debug
+            --nodes = 1
+
+    [[run_ungrib]]
+        script = """
+            source @ENV_FILE
+            @F90NML -g ungrib -v prefix="'FILE'" namelist.wps namelist.wps
+            ln -sf @WPS_PATH/ungrib/Variable_Tables/Vtable.GFS Vtable
+            @UNGRIB_EXE
+
+            @F90NML -g ungrib -v prefix="'SST'" namelist.wps namelist.wps
+            ln -sf @WPS_PATH/ungrib/Variable_Tables/Vtable.SST Vtable
+            @UNGRIB_EXE
+        """
+
+    [[run_metgrid]]
+        script = """
+            source @ENV_FILE
+            ln -sf @WPS_PATH/metgrid .
+            @F90NML -g metgrid -v fg_name="'FILE'" namelist.wps namelist.wps
+            @METGRID_EXE
+        """
+
+    [[run_real]]
+        script = """
+            source @ENV_FILE
+            cp @EM_REAL_DIR/* .
+            cp $CYLC_WORKFLOW_RUN_DIR/namelist.input .
+            srun @REAL_EXE
+        """
+
+    [[run_wrf]]
+        script = """
+            source @ENV_FILE
+            srun @WRF_EXE
+        """
+        [[[directives]]]
+            --ntasks=32

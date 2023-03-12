@@ -39,8 +39,7 @@
  truelat2  =  26.0,
  stand_lon =  45.0,
 
- geog_data_path = '/project/k1316/risanto/WPS_GEOG/'
- OPT_GEOGRID_TBL_PATH = '/project/k1316/risanto/WPSV3.9/geogrid'
+ geog_data_path = 'WPS_GEOG'
 /
 
 &ungrib

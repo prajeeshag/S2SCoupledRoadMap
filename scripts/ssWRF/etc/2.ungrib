@@ -1,0 +1,21 @@
+#!/bin/bash
+
+frame=/project/k1418/S2S/frame
+for f in DAT/FORE.????????.* ; do
+    sdate=$(date -d "${f:9:8}" +%F)
+    edate=$(date -d "$sdate +30 day" +%F)
+    ens=${f:18}
+    run=$sdate.$ens
+    echo $run
+    mkdir -p $run ; cd $run
+    sed -e 's/1998-10-08/'$sdate'/g' \
+        -e 's/1998-11-07/'$edate'/g' \
+        $frame/namelist.wps > namelist.wps
+    ln -sf $frame/Vtable .
+    ln -sf $frame/ungrib* .
+    ln -sf ../$f GRIBFILE.AAA
+    ln -sf ../${f/FORE/SURF} GRIBFILE.AAB
+    sbatch ungrib.sh
+    cd ..
+done
+
