@@ -1,35 +1,76 @@
 &share
  wrf_core = 'ARW',
  max_dom = 1,
- start_date = '2016-10-06_00:00:00', '2016-10-06_00:00:00'
- end_date = '2016-10-08_00:00:00', '2016-10-06_00:00:00'
- interval_seconds = 21600,
+ start_date = '1998-10-08_00:00:00','2009-11-05_00:00:00',
+ end_date   = '1998-11-07_00:00:00','2009-11-27_00:00:00',
+ interval_seconds = 43200
+ io_form_geogrid = 2,
 /
 
 &geogrid
- parent_id         =   1,  
- parent_grid_ratio =   1, 
- i_parent_start    =   1, 
- j_parent_start    =   1, 
- e_we              =  91, 
- e_sn              =  100,  
- geog_data_res = 'default',
- dx = 27000,
- dy = 27000,
- map_proj = 'mercator',
- ref_lat = 28.00,
- ref_lon = -75.00,
- truelat1 = 30.0,
- truelat2 = 60.0,
- stand_lon = -75.0,
- geog_data_path = "WPS_GEOG_PATH"
+ parent_id         =   1,     1,
+ parent_grid_ratio =   1,     5,
+ i_parent_start    =   1,    35,
+ j_parent_start    =   1,    26,
+ e_we              =  768,  766,
+ e_sn              =  672,  671,
+ !
+ !!!!!!!!!!!!!!!!!!!!!!!!!!!! IMPORTANT NOTE !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ ! The default datasets used to produce the HGT_M, GREENFRAC, 
+ ! and LU_INDEX/LANDUSEF fields have changed in WPS v3.8. The HGT_M field
+ ! is now interpolated from 30-arc-second USGS GMTED2010, the GREENFRAC 
+ ! field is interpolated from MODIS FPAR, and the LU_INDEX/LANDUSEF fields 
+ ! are interpolated from 21-class MODIS.
+ !
+ ! To match the output given by the default namelist.wps in WPS v3.7.1, 
+ ! the following setting for geog_data_res may be used:
+ !
+ ! geog_data_res = 'gtopo_10m+usgs_10m+nesdis_greenfrac+10m','gtopo_2m+usgs_2m+nesdis_greenfrac+2m',
+ !
+ !!!!!!!!!!!!!!!!!!!!!!!!!!!! IMPORTANT NOTE !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ !
+ geog_data_res = 'default','default',
+ dx = 4000,
+ dy = 4000,
+ map_proj = 'lambert',
+ ref_lat   =  22.3,
+ ref_lon   =  45.0,
+ truelat1  =  18.0,
+ truelat2  =  26.0,
+ stand_lon =  45.0,
+
+ geog_data_path = '/project/k1316/risanto/WPS_GEOG/'
+ OPT_GEOGRID_TBL_PATH = '/project/k1316/risanto/WPSV3.9/geogrid'
 /
 
 &ungrib
  out_format = 'WPS',
- prefix = 'SST',
+ prefix = 'ECM',
+! prefix = 'SFC',
+! prefix = 'E5P',
+! prefix = 'E5S',
 /
 
 &metgrid
- fg_name = 'FILE'
+ fg_name = 'ECM',
+! fg_name = 'ECM','SFC',
+! fg_name = 'ECM','E5S',
+! fg_name = 'E5P','E5S',
+ io_form_metgrid = 2,
 /
+
+&mod_levs
+ press_pa = 201300 , 200100 ,
+            101300 , 100000 ,
+             95000 ,  90000 ,
+             85000 ,  80000 ,
+             75000 ,  70000 ,
+             65000 ,  60000 ,
+             55000 ,  50000 ,
+             45000 ,  40000 ,
+             35000 ,  30000 ,
+             25000 ,  20000 ,
+             15000 ,  10000 ,
+              5000 ,   1000
+/
+
